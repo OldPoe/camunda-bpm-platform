@@ -21,40 +21,53 @@
   ],
 
   "responses" : {
+    <#-- not using response macro here due to multiple response types
+         * extending the response macro for this is rather complex and not worth it for one case -->
+    "200": {
+      "description": "Request successful.",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "string",
+            "format": "binary",
+            "description": "A JSON byte stream is returned for camunda-forms."
+          }
+        },
+        "application/xhtml+xml": {
+          "schema": {
+            "type": "string",
+            "format": "binary",
+            "description": "For `application/xhtml+xml` Responses, a byte stream is returned."
+          },
+          "examples": {
+            "example-1": {
+              "summary": "Status 200 Response",
+              "description": "Resonse for GET `/task/taskId/deployed-form`",
+              "value": '<form role=\\"form\\" name=\\"invoiceForm\\"
+                              class=\\"form-horizontal\\">
 
-    <@lib.response
-        code = "200"
-        mediaType = "application/xhtml+xml"
-        desc = "Request successful."
-        examples = ['"example-1": {
-                       "summary": "Status 200 Response",
-                       "description": "Resonse for GET `/task/taskId/deployed-form`",
-                       "value": "<form role=\\"form\\" name=\\"invoiceForm\\"
-                                      class=\\"form-horizontal\\">
+                          <div class=\\"form-group\\">
+                            <label class=\\"control-label col-md-4\\"
+                                  for=\\"creditor\\">Creditor</label>
+                            <div class=\\"col-md-8\\">
+                              <input cam-variable-name=\\"creditor\\"
+                                     cam-variable-type=\\"String\\"
+                                     id=\\"creditor\\"
+                                     class=\\"form-control\\"
+                                     type=\\"text\\"
+                                     required />
+                              <div class=\\"help\\">
+                                   (e.g. &quot;Great Pizza for Everyone Inc.&quot;)
+                              </div>
+                            </div>
+                          </div>
 
-                                  <div class=\\"form-group\\">
-                                    <label class=\\"control-label col-md-4\\"
-                                           for=\\"creditor\\">Creditor</label>
-                                    <div class=\\"col-md-8\\">
-                                      <input cam-variable-name=\\"creditor\\"
-                                             cam-variable-type=\\"String\\"
-                                             id=\\"creditor\\"
-                                             class=\\"form-control\\"
-                                             type=\\"text\\"
-                                             required />
-                                      <div class=\\"help\\">
-                                        (e.g. &quot;Great Pizza for Everyone Inc.&quot;)
-                                      </div>
-                                    </div>
-                                  </div>
-
-                                </form>"
-                     }'] />
-
-    <@lib.response
-        code = "200"
-        mediaType = "application/json"
-        desc = "Request successful." />
+                        </form>'
+            }
+          }
+        }
+      }
+    },
 
     <@lib.response
         code = "400"
